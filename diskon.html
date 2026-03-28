@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Diskon Produk</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f1f5f9;
+}
+
+/* TOPBAR */
+.topbar {
+  height: 60px;
+  background: white;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 10px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.back-btn {
+  width: 38px;
+  height: 38px;
+  border: none;
+  background: #4f46e5;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* CONTAINER */
+.container {
+  padding: 20px;
+  max-width: 700px;
+  margin: auto;
+}
+
+/* CARD */
+.card {
+  background: white;
+  padding: 16px;
+  border-radius: 14px;
+  margin-bottom: 12px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* PRICE */
+.price-old {
+  text-decoration: line-through;
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+.price-new {
+  font-size: 18px;
+  font-weight: 600;
+  color: #16a34a;
+}
+
+/* INPUT */
+input {
+  width: 80px;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+/* LABEL */
+.label {
+  font-size: 13px;
+  color: gray;
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+  <button onclick="goBack()" class="back-btn">←</button>
+  <h3>Diskon Produk</h3>
+</div>
+
+<div class="container" id="list"></div>
+
+<script type="module" src="js/diskon.js"></script>
+
+</body>
+</html>

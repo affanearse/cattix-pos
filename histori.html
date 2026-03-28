@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Histori Transaksi</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f1f5f9;
+}
+
+/* ===== TOPBAR ===== */
+.topbar {
+  height: 60px;
+  background: white;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 10px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.back-btn {
+  width: 38px;
+  height: 38px;
+  border: none;
+  background: #4f46e5;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+  padding: 20px;
+  max-width: 700px;
+  margin: auto;
+}
+
+/* ===== FILTER ===== */
+.filter-box {
+  background: white;
+  padding: 15px;
+  border-radius: 14px;
+  margin-bottom: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  margin-bottom: 10px;
+}
+
+/* ===== CARD ===== */
+.card {
+  background: white;
+  padding: 16px;
+  border-radius: 14px;
+  margin-bottom: 12px;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.trx-id {
+  font-weight: 600;
+  color: #4f46e5;
+}
+
+.badge {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.cash {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.qris {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+.small {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* ===== EMPTY ===== */
+.empty {
+  text-align: center;
+  color: #9ca3af;
+  margin-top: 40px;
+}
+
+/* ===== MODAL ===== */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  width: 320px;
+}
+
+/* STRUK STYLE */
+.struk-header {
+  text-align: center;
+}
+
+.line {
+  border-top: 1px dashed #000;
+  margin: 10px 0;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #4f46e5;
+  color: white;
+  margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+  <button onclick="goBack()" class="back-btn">←</button>
+  <h3>Histori Transaksi</h3>
+</div>
+
+<div class="container">
+
+  <div class="filter-box">
+    <input type="date" id="date" onchange="filterTanggal()">
+    <input type="text" placeholder="Cari kode transaksi..." oninput="search(this.value)">
+  </div>
+
+  <div id="list"></div>
+
+</div>
+
+<!-- MODAL DETAIL -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+
+    <div class="struk-header">
+      <h3 id="detail-id"></h3>
+      <p id="detail-date"></p>
+    </div>
+
+    <div class="line"></div>
+
+    <div id="detail-items"></div>
+
+    <div class="line"></div>
+
+    <div class="total">
+      <span>Total</span>
+      <span>Rp <span id="detail-total"></span></span>
+    </div>
+
+    <div class="line"></div>
+
+    <p style="text-align:center;">Terima kasih ❤️</p>
+
+    <button onclick="closeModal()">Tutup</button>
+
+  </div>
+</div>
+
+<script type="module" src="js/histori.js"></script>
+
+</body>
+</html>

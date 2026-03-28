@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Pengaturan Toko</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #f3f4f6;
+}
+
+/* TOPBAR */
+.topbar {
+  height: 60px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.back-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: #4f46e5;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* CONTAINER */
+.container {
+  padding: 30px;
+  max-width: 500px;
+  margin: auto;
+}
+
+/* CARD */
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+/* INPUT */
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+/* BUTTON */
+button.save {
+  width: 100%;
+  padding: 12px;
+  background: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+  <button onclick="goBack()" class="back-btn">←</button>
+  <h3>Pengaturan Toko</h3>
+  <div></div>
+</div>
+
+<div class="container">
+  <div class="card">
+
+    <input type="text" id="name" placeholder="Nama Toko">
+    <textarea id="address" placeholder="Alamat Toko"></textarea>
+    <input type="text" id="phone" placeholder="Nomor Telepon">
+    <label>Logo Toko</label>
+    <input type="file" id="logo" accept="image/*">
+    <img id="preview-logo" style="width:100px; margin-top:10px;">
+
+    <button class="save" onclick="save()">Simpan</button>
+
+  </div>
+</div>
+
+<script type="module" src="js/setting.js"></script>
+
+</body>
+</html>

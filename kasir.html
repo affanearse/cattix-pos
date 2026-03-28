@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Cattix Kasir</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #f3f4f6;
+}
+
+/* ===== TOPBAR ===== */
+.topbar {
+  height: 60px;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+/* LOGO */
+.logo-cattix {
+  height: 40px;
+  object-fit: contain;
+}
+
+/* MENU */
+.menu-wrapper {
+  position: relative;
+}
+
+.menu-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: #4f46e5;
+  color: white;
+  border-radius: 10px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* DROPDOWN */
+.menu-dropdown {
+  position: absolute;
+  left: 0;
+  top: 50px;
+  width: 200px;
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  display: none;
+}
+
+.menu-dropdown p {
+  padding: 12px;
+  margin: 0;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.menu-dropdown p:hover {
+  background: #f3f4f6;
+}
+
+.menu-dropdown hr {
+  margin: 5px 0;
+  border: none;
+  border-top: 1px solid #eee;
+}
+
+.logout {
+  color: red;
+}
+
+/* ===== LAYOUT ===== */
+.kasir-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  height: calc(100vh - 60px);
+}
+
+/* ===== PRODUK ===== */
+.produk-section { padding: 30px; }
+
+.produk-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.produk-item {
+  background: white;
+  padding: 16px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.produk-item:hover {
+  transform: scale(1.03);
+}
+
+.produk-item p {
+  color: #4f46e5;
+  font-weight: 600;
+}
+
+/* SEARCH */
+.search-input {
+  width: 100%;
+  padding: 12px;
+  margin: 15px 0 20px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  font-size: 14px;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99,102,241,0.2);
+}
+
+/* ===== CART ===== */
+.cart-section {
+  background: white;
+  padding: 20px;
+  border-left: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+}
+
+#cart-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* ITEM */
+.cart-item {
+  display: grid;
+  grid-template-columns: 1fr 110px 120px;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+/* QTY MODERN */
+.qty-box {
+  width: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 4px;
+  border: 1px solid #e5e7eb;
+}
+
+.qty-box button {
+  width: 34px;
+  height: 34px;
+  border: none;
+  background: #4f46e5;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.qty-box button:hover {
+  background: #4338ca;
+  transform: scale(1.05);
+}
+
+.qty-box button:active {
+  transform: scale(0.95);
+}
+
+.qty-box span {
+  min-width: 36px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* TOTAL */
+.item-total {
+  text-align: right;
+  font-weight: 600;
+}
+
+/* FOOTER */
+.cart-footer {
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
+select, button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+
+button {
+  background: #4f46e5;
+  color: white;
+  border: none;
+}
+
+/* ===== STRUK ===== */
+.struk-box {
+  width: 300px;
+  font-size: 12px;
+  font-family: monospace;
+}
+
+.struk-header {
+  text-align: center;
+}
+
+.line {
+  border-top: 1px dashed #000;
+  margin: 8px 0;
+}
+
+.struk-total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.thanks {
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* PRINT */
+@media print {
+  body * { visibility: hidden; }
+
+  #struk, #struk * {
+    visibility: visible;
+  }
+
+  #struk {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== TOPBAR ===== -->
+<div class="topbar">
+
+  <!-- KIRI: MENU + USER INFO -->
+  <div style="display:flex; align-items:center; gap:12px;">
+
+    <div class="menu-wrapper">
+      <button class="menu-btn" onclick="toggleMenu()">☰</button>
+      
+      <div id="menu-dropdown" class="menu-dropdown">
+        <p onclick="goTo('kasir.html')">Kasir</p>
+        <p onclick="goTo('stok.html')">Stok</p>
+        <p onclick="goTo('diskon.html')">Diskon</p>
+        <p onclick="goTo('laporan.html')">Laporan</p>
+        <p onclick="goTo('histori.html')">Histori</p>
+        <p onclick="goTo('setting.html')">Pengaturan Toko</p>
+        <hr>
+        <p class="logout" onclick="logout()">Logout</p>
+      </div>
+    </div>
+
+    <!-- ✅ TAMBAHAN INI -->
+    <span id="user-info" style="font-size:14px; color:#6b7280;">
+      Login sebagai: -
+    </span>
+
+  </div>
+
+  <!-- KANAN: LOGO -->
+  <img src="img/logo.png" class="logo-cattix">
+
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="kasir-container">
+
+  <!-- PRODUK -->
+  <div class="produk-section">
+    <h2>Produk</h2>
+
+    <input 
+      type="text"
+      id="search"
+      placeholder="Cari produk..."
+      oninput="searchProduk(this.value)"
+      class="search-input"
+    >
+
+    <div id="produk-list" class="produk-list"></div>
+  </div>
+
+  <!-- CART -->
+  <div class="cart-section">
+    <h2>Keranjang</h2>
+    <div id="cart-list"></div>
+
+    <div class="cart-footer">
+      <h3>Total: Rp <span id="total">0</span></h3>
+
+      <select id="payment">
+        <option value="cash">Cash</option>
+        <option value="qris">QRIS</option>
+      </select>
+
+      <button onclick="bayar()">Bayar</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== STRUK ===== -->
+<div id="struk" style="display:none;">
+  <div class="struk-box">
+
+  <div class="struk-header">
+    <img id="struk-logo" style="width:80px; margin-bottom:5px;">
+    <h2 id="store-name">Cattix Store</h2>
+    <p id="store-address">Alamat toko</p>
+    <p id="store-phone">081234</p>
+  </div>
+
+    <div class="line"></div>
+
+    <p>Kode: <span id="trx-id"></span></p>
+    <p id="trx-date"></p>
+
+    <div class="line"></div>
+
+    <div id="struk-items"></div>
+
+    <div class="line"></div>
+
+    <div class="struk-total">
+      <span>Total</span>
+      <span>Rp <span id="struk-total"></span></span>
+    </div>
+
+    <div class="line"></div>
+
+    <p class="thanks">Terima kasih atas kunjungan Anda</p>
+
+  </div>
+</div>
+
+<script type="module" src="js/kasir.js"></script>
+</body>
+</html>

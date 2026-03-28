@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Laporan</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+* { box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+body { margin: 0; background: #f8fafc; }
+
+.topbar {
+  height: 60px;
+  background: white;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.back-btn {
+  width: 38px;
+  height: 38px;
+  border: none;
+  background: #4f46e5;
+  color: white;
+  border-radius: 10px;
+}
+
+.container {
+  padding: 20px;
+  max-width: 950px;
+  margin: auto;
+}
+
+.filter-card {
+  background: white;
+  padding: 16px;
+  border-radius: 14px;
+  margin-bottom: 15px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+select, input {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+}
+
+.download-btn {
+  background: #4f46e5; /* ungu utama */
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.download-btn:hover {
+  background: #4338ca; /* ungu lebih gelap */
+}
+
+.download-btn:active {
+  transform: scale(0.96);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.stat-card {
+  background: white;
+  padding: 16px;
+  border-radius: 14px;
+}
+
+.chart-card, .analysis {
+  background: white;
+  padding: 16px;
+  border-radius: 14px;
+  margin-top: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+  <button onclick="goBack()" class="back-btn">←</button>
+  <h3>Laporan</h3>
+</div>
+
+<div class="container">
+
+  <!-- FILTER -->
+  <div class="filter-card">
+    <select id="type" onchange="changeInput()">
+      <option value="harian">Harian</option>
+      <option value="bulanan">Bulanan</option>
+      <option value="tahunan">Tahunan</option>
+    </select>
+
+    <input type="date" id="input-harian" onchange="loadLaporan()">
+
+    <div id="input-bulanan" style="display:none;">
+      <select id="bulan" onchange="loadLaporan()">
+        <option value="0">Jan</option><option value="1">Feb</option>
+        <option value="2">Mar</option><option value="3">Apr</option>
+        <option value="4">Mei</option><option value="5">Jun</option>
+        <option value="6">Jul</option><option value="7">Agu</option>
+        <option value="8">Sep</option><option value="9">Okt</option>
+        <option value="10">Nov</option><option value="11">Des</option>
+      </select>
+      <input type="number" id="tahun-bulan" placeholder="Tahun" onchange="loadLaporan()">
+    </div>
+
+    <input type="number" id="input-tahun" placeholder="Tahun" style="display:none;" onchange="loadLaporan()">
+
+    <button class="download-btn" onclick="downloadPDF()">Download</button>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat-card">Omset<br><b id="total">Rp 0</b></div>
+    <div class="stat-card">Transaksi<br><b id="trx">0</b></div>
+    <div class="stat-card">Terlaris<br><b id="best">-</b></div>
+    <div class="stat-card">Kurang Laku<br><b id="worst">-</b></div>
+  </div>
+
+  <!-- CHART -->
+  <div class="chart-card">
+    <canvas id="chart"></canvas>
+  </div>
+
+  <!-- ANALISIS -->
+  <div class="analysis">
+    <p id="analisis"></p>
+  </div>
+
+</div>
+
+<script type="module" src="js/laporan.js"></script>
+
+</body>
+</html>
