@@ -265,6 +265,54 @@ button {
     left: 0;
   }
 }
+
+/* SIDEBAR */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 260px;
+  height: 100%;
+  background: white;
+  box-shadow: 5px 0 20px rgba(0,0,0,0.1);
+  transition: 0.3s;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.sidebar a {
+  display: block;
+  padding: 12px;
+  margin-bottom: 8px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+.sidebar a:hover {
+  background: #f3f4f6;
+}
+
+/* OVERLAY */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  display: none;
+  z-index: 999;
+}
+
+.overlay.active {
+  display: block;
+}
+
 </style>
 </head>
 
@@ -275,21 +323,23 @@ button {
 
   <!-- KIRI: MENU + USER INFO -->
   <div style="display:flex; align-items:center; gap:12px;">
+<button class="menu-btn" onclick="toggleSidebar()">☰</button>
+<div id="sidebar" class="sidebar">
+  <h3>Menu</h3>
 
-    <div class="menu-wrapper">
-      <button class="menu-btn" onclick="toggleMenu()">☰</button>
-      
-      <div id="menu-dropdown" class="menu-dropdown">
-        <p onclick="goTo('kasir.html')">Kasir</p>
-        <p onclick="goTo('stok.html')">Stok</p>
-        <p onclick="goTo('diskon.html')">Diskon</p>
-        <p onclick="goTo('laporan.html')">Laporan</p>
-        <p onclick="goTo('histori.html')">Histori</p>
-        <p onclick="goTo('setting.html')">Pengaturan Toko</p>
-        <hr>
-        <p class="logout" onclick="logout()">Logout</p>
-      </div>
-    </div>
+  <a href="kasir.html">🛒 Kasir</a>
+  <a href="stok.html">📦 Stok</a>
+  <a href="diskon.html">💸 Diskon</a>
+  <a href="histori.html">📊 Histori</a>
+  <a href="laporan.html">📈 Laporan</a>
+  <a href="setting.html">⚙️ Setting</a>
+
+  <hr>
+
+  <a href="#" onclick="logout()" style="color:red;">🚪 Logout</a>
+</div>
+
+<div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
 
     <!-- ✅ TAMBAHAN INI -->
     <span id="user-info" style="font-size:14px; color:#6b7280;">
@@ -332,6 +382,7 @@ button {
       <select id="payment">
         <option value="cash">Cash</option>
         <option value="qris">QRIS</option>
+        <option value="bca">BCA</option>
       </select>
 
       <button onclick="bayar()">Bayar</button>
@@ -373,6 +424,16 @@ button {
 
   </div>
 </div>
+
+<script>
+function toggleSidebar() {
+  console.log("klik"); // untuk tes
+
+  document.getElementById("sidebar").classList.toggle("active")
+  document.getElementById("overlay").classList.toggle("active")
+}
+</script>
+
 
 <script type="module" src="js/kasir.js"></script>
 </body>

@@ -159,3 +159,4 @@ loadProduk()
 window.goBack = function() {
   window.location.href = "kasir.html"
 }
+

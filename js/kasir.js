@@ -293,7 +293,7 @@ window.goTo = function(page) {
 
 window.logout = async function() {
   await supabase.auth.signOut()
-  window.location.href = "login.html"
+  window.location.href = "index.html"
 }
 
 // ================== USER INFO ==================
@@ -306,6 +306,8 @@ async function loadUserInfo() {
       "Login sebagai: " + user.email
   }
 }
+
+
 
 // ================== INIT ==================
 checkAuth()

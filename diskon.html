@@ -81,6 +81,72 @@ input {
   font-size: 13px;
   color: gray;
 }
+
+.discount-box {
+  margin-top: 10px;
+}
+
+/* LABEL */
+.discount-box label {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* WRAPPER INPUT */
+.input-discount {
+  display: flex;
+  align-items: center;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: 0.2s;
+}
+
+/* INPUT */
+.input-discount input {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+/* PERSEN */
+.input-discount span {
+  padding: 0 12px;
+  background: #f3f4f6;
+  color: #374151;
+  font-weight: 500;
+}
+
+/* FOCUS */
+.input-discount:focus-within {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99,102,241,0.2);
+}
+
+/* AKTIF (ADA DISKON) */
+.input-discount.active {
+  border-color: #16a34a;
+}
+
+/* INFO */
+.discount-info {
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+.price-new {
+  transition: all 0.25s ease;
+}
+
+.price-animate {
+  transform: scale(1.1);
+  color: #16a34a;
+}
+
 </style>
 </head>
 
@@ -91,7 +157,9 @@ input {
   <h3>Diskon Produk</h3>
 </div>
 
-<div class="container" id="list"></div>
+<div class="container">
+  <div id="list"></div>
+</div>
 
 <script type="module" src="js/diskon.js"></script>
 

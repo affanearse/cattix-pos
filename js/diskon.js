@@ -2,6 +2,7 @@ import { supabase } from './supabase.js'
 
 let products = []
 
+// ================= LOAD =================
 async function load() {
   const { data: userData } = await supabase.auth.getUser()
   const user = userData.user
@@ -15,6 +16,7 @@ async function load() {
   render()
 }
 
+// ================= RENDER =================
 function render() {
   const list = document.getElementById('list')
   list.innerHTML = ''
@@ -37,55 +39,98 @@ function render() {
         Rp ${new Intl.NumberFormat('id-ID').format(hargaDiskon)}
       </div>
 
-      <div class="label">Diskon (%)</div>
-      <input type="number"
-      value="${discount}"
-      min="0"
-      max="100"
-      oninput="this.value = Math.max(0, Math.min(100, this.value)); preview('${p.id}', ${p.price}, this.value)"
-      onchange="save('${p.id}', this.value)">
+      <div class="discount-box">
+        <label>Diskon</label>
+
+        <div class="input-discount ${discount > 0 ? 'active' : ''}">
+          <input type="number"
+            value="${discount}"
+            min="0"
+            max="100"
+            oninput="handleInput(this, '${p.id}', ${p.price})"
+            onchange="save('${p.id}', this.value)">
+          <span>%</span>
+        </div>
+
+        <small class="discount-info">
+          Harga otomatis berubah saat diisi
+        </small>
+      </div>
     `
 
     list.appendChild(div)
   })
 }
 
-// ================= PREVIEW LANGSUNG =================
-window.preview = function(id, price, value) {
-  value = parseInt(value) || 0
+// ================= ANIMASI HARGA =================
+function animatePrice(el, start, end) {
+  let current = start
+  const step = (end - start) / 10
+
+  const interval = setInterval(() => {
+    current += step
+
+    if ((step > 0 && current >= end) || (step < 0 && current <= end)) {
+      current = end
+      clearInterval(interval)
+    }
+
+    el.innerText =
+      'Rp ' + new Intl.NumberFormat('id-ID').format(Math.round(current))
+  }, 20)
+}
+
+// ================= HANDLE INPUT =================
+window.handleInput = function(el, id, price) {
+  let value = parseInt(el.value) || 0
+
+  // batasi 0 - 100
+  value = Math.max(0, Math.min(100, value))
+  el.value = value
 
   const hargaDiskon = price - (price * value / 100)
 
-  document.getElementById(`price-${id}`).innerText =
-    "Rp " + new Intl.NumberFormat('id-ID').format(hargaDiskon)
+  const priceEl = document.getElementById(`price-${id}`)
+
+  // ambil harga sekarang
+  const currentText = priceEl.innerText.replace(/\D/g, '')
+  const currentPrice = parseInt(currentText) || 0
+
+  // animasi angka
+  animatePrice(priceEl, currentPrice, hargaDiskon)
+
+  // animasi highlight
+  priceEl.classList.add('price-animate')
+  setTimeout(() => {
+    priceEl.classList.remove('price-animate')
+  }, 300)
+
+  // efek aktif input
+  const wrapper = el.parentElement
+  if (value > 0) {
+    wrapper.classList.add('active')
+  } else {
+    wrapper.classList.remove('active')
+  }
 }
 
-// ================= SIMPAN =================
+// ================= SAVE =================
 window.save = async function(id, value) {
-  value = parseInt(value)
+  value = parseInt(value) || 0
 
-  // VALIDASI
-  if (isNaN(value) || value < 0) value = 0
-  if (value > 100) value = 100
-
-  // UPDATE
   const { error } = await supabase
     .from('products')
     .update({ discount: value })
     .eq('id', id)
 
   if (error) {
-    alert("Gagal simpan diskon: " + error.message)
-    return
+    alert("Gagal simpan: " + error.message)
   }
-
-  // REFRESH DATA BIAR LANGSUNG UPDATE
-  load()
 }
 
-// ================= NAV =================
 window.goBack = function() {
   window.location.href = "kasir.html"
 }
 
+// ================= INIT =================
 load()

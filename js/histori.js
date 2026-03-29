@@ -78,8 +78,7 @@ window.filterTanggal = function() {
 
   filtered = transactions.filter(trx => {
     const trxDate = new Date(trx.created_at)
-      .toISOString()
-      .split('T')[0]
+      .toLocaleDateString('en-CA')
 
     return trxDate === selectedDate
   })
