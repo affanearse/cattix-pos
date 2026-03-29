@@ -13,9 +13,22 @@ window.login = async function () {
   })
 
   if (error) {
-    errorText.innerText = error.message
-    return
+  const msg = error.message.toLowerCase()
+
+  if (
+    msg.includes("banned") ||
+    msg.includes("blocked") ||
+    msg.includes("suspended")
+  ) {
+    errorText.innerText = "Akun Anda telah diblokir"
+  } else if (msg.includes("invalid login")) {
+    errorText.innerText = "Email atau password salah"
+  } else {
+    errorText.innerText = "Terjadi kesalahan, coba lagi"
   }
+
+  return
+}
 
   errorText.innerText = "Login berhasil!"
 
